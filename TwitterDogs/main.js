@@ -9,7 +9,7 @@ var dog2 = '#rufusthedog';
 var geocoderProvider = 'google';
 var httpAdapter = 'https';
 var extra = {
-    apiKey: 'AIzaSyCv9wqOEiA062HmeujqdOCSeR9VzqYMc8k', // for Mapquest, OpenCage, Google Premier
+    apiKey: '<YOUR GOOGLE API KEY HERE>', // for Mapquest, OpenCage, Google Premier
     formatter: null // 'gpx', 'string', ...
 };
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, extra);
@@ -30,10 +30,10 @@ var io = require('socket.io')(server);
 
 //create connection to the twitter api - enter your token info below!
 var T = new Twit({
-    consumer_key: 'A1RwyAr0CuSPwESvluTekrAny',
-    consumer_secret: '8Uo8H5R1tfGPZfxcgzPBFUPxkb4VLNjJZIap2cLzBL7Y6Pkaic',
-    access_token: '733416977146904576-VyBDV0LrsrNtHPV4jFbFBn9jD9KmLrc',
-    access_token_secret: 'ILHHBiIxEJ2wbND5mF8OjpeS0YDVFttCEFdkiKGxQCyu8'
+    consumer_key: '<TWITTER PUBLIC KEY>',
+    consumer_secret: '<TWITTER PRIVATE KEY>',
+    access_token: '<TWITTER ACCESS TOKEN>',
+    access_token_secret: '<TWITTER SECRET ACCESS TOKEN>'
 });
 
 // Instantiate a Stepper motor on a ULN200XA Darlington Motor Driver
@@ -70,10 +70,6 @@ myUln200xa_obj.quit = function() {
 //Instantiate LCD JHD1313 module on the i2c bus
 var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
 
-//create case-insensitive search terms to catch variations 
-//var dog1_search = "/"+dog1+"/i"
-//var dog2_search = "/"+dog2+"/i"
-//console.log(dog1_search, dog2_search)
 
 //begin twitter stream tracking the hashtags specified above 
 var stream = T.stream('statuses/filter', {
@@ -200,7 +196,7 @@ stream.on('tweet', function(tweet) {
     }
 });
 
-app.use(express.static('/home/root/.node_app_slot/public/'));
+app.use(express.static(__dirname+'/public/'));
 
 app.get('/', function(req, res) {
     res.sendFile("/home/root/.node_app_slot/public/index.html");
